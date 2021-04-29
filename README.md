@@ -5,7 +5,7 @@ Building a GPS Basic Application
 Demostrate the use of the folliwing features:
 
 **1. FusedLocationProviderClient:**
-The standard Andoid API used for reading GPS and cell phone tower location data
+The standard Android API used for reading GPS and cell phone tower location data
 
 **2. Permissions:**
 Allowing an app to track the location of the phone

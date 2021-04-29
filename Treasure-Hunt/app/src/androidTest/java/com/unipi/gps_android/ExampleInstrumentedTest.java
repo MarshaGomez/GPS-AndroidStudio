@@ -1,4 +1,4 @@
-package com.example.gps_andoid;
+package com.unipi.gps_android;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.gps_andoid", appContext.getPackageName());
+        assertEquals("com.example.gps_android", appContext.getPackageName());
     }
 }
