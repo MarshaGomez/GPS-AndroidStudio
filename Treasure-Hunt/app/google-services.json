@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:694447821586:android:c13eec907789ce7a5259cb",
         "android_client_info": {
-          "package_name": "com.example.gps_android"
+          "package_name": "com.unipi.gps_android"
         }
       },
       "oauth_client": [

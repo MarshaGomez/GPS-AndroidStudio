@@ -4,12 +4,12 @@
 
     To get one, follow this link, follow the directions and press "Create" at the end:
 
-    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=A9:8C:1F:A6:12:58:1B:93:85:EB:62:6E:80:D6:4E:F3:C2:F2:72:BE%3Bcom.example.gps_android
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=A9:8C:1F:A6:12:58:1B:93:85:EB:62:6E:80:D6:4E:F3:C2:F2:72:BE%3Bcom.unipi.gps_android
 
     You can also add your credentials to an existing key, using these values:
 
     Package name:
-    com.example.gps_android
+    com.unipi.gps_android
 
     SHA-1 certificate fingerprint:
     A9:8C:1F:A6:12:58:1B:93:85:EB:62:6E:80:D6:4E:F3:C2:F2:72:BE
