@@ -1,4 +1,4 @@
-package com.unipi.myapplication;
+package com.unipi.mlkit;
 
 import org.junit.Test;
 
