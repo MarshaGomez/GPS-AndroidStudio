@@ -1,7 +1,9 @@
 package com.unipi.treasurehunt.ui.map;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -23,9 +25,7 @@ public class MapFragment extends Fragment {
 
     private MapViewModel mapViewModel;
     private FragmentMapBinding binding;
-    private ImageView imageView;
     static final int REQUEST_IMAGE_CAPTURE = 1;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,14 +43,16 @@ public class MapFragment extends Fragment {
             }
         });
 
-        final Button camerabtn = binding.cameraButton;
-
-        camerabtn.setOnClickListener(new View.OnClickListener() {
+        // Camera Example Section
+        final Button cameraButton = binding.cameraButton;
+        cameraButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Code here executes on main thread after user presses button
                 dispatchTakePictureIntent();
             }
         });
+
+        // Image Example Section
+        final ImageView imageView = binding.imageView;
 
         return root;
     }
@@ -60,7 +62,17 @@ public class MapFragment extends Fragment {
         try {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         } catch (ActivityNotFoundException e) {
-            // display error state to the user
+            // Error User
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            binding.imageView.setImageBitmap(imageBitmap);
         }
     }
 
