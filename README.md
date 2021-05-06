@@ -1,3 +1,5 @@
+Java version 11
+
 # GPS-AndroidStudio
 Building a GPS Basic Application
 
