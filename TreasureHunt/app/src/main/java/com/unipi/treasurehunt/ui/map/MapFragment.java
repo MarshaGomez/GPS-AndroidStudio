@@ -1,10 +1,14 @@
 package com.unipi.treasurehunt.ui.map;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +23,9 @@ public class MapFragment extends Fragment {
 
     private MapViewModel mapViewModel;
     private FragmentMapBinding binding;
+    private ImageView imageView;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -36,7 +43,25 @@ public class MapFragment extends Fragment {
             }
         });
 
+        final Button camerabtn = binding.cameraButton;
+
+        camerabtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                dispatchTakePictureIntent();
+            }
+        });
+
         return root;
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        try {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        } catch (ActivityNotFoundException e) {
+            // display error state to the user
+        }
     }
 
     @Override
