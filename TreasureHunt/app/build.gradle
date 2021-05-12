@@ -2,6 +2,9 @@ plugins {
     id 'com.android.application'
 }
 
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -30,9 +33,6 @@ android {
         viewBinding true
     }
 }
-
-apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
