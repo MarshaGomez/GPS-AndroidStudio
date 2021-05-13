@@ -19,12 +19,23 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.mlkit.vision.common.InputImage;
+import com.google.mlkit.vision.label.ImageLabel;
+import com.google.mlkit.vision.label.ImageLabeler;
+import com.google.mlkit.vision.label.ImageLabeling;
+import com.google.mlkit.vision.label.defaults.ImageLabelerOptions;
 import com.unipi.treasurehunt.databinding.FragmentMapBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapFragment extends Fragment {
 
     private MapViewModel mapViewModel;
     private FragmentMapBinding binding;
+    private StringBuilder stringBuilder = new StringBuilder();
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -54,6 +65,15 @@ public class MapFragment extends Fragment {
         // Image Example Section
         final ImageView imageView = binding.imageView;
 
+        final Button analyzeButton = binding.analyzeButton;
+        final TextView textLabel = binding.textLabel;
+
+        analyzeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                textLabel.setText(stringBuilder.toString());
+            }
+        });
+
         return root;
     }
 
@@ -72,8 +92,42 @@ public class MapFragment extends Fragment {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
+            detectLabelFromImage(imageBitmap);
             binding.imageView.setImageBitmap(imageBitmap);
         }
+    }
+
+
+
+    private void detectLabelFromImage(Bitmap imageBitmap){
+        int rotationDegree = 0;
+        InputImage image = InputImage.fromBitmap(imageBitmap, rotationDegree);
+        ImageLabeler labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS);
+
+        labeler.process(image)
+                .addOnSuccessListener(new OnSuccessListener<List<ImageLabel>>() {
+                    @Override
+                    public void onSuccess(List<ImageLabel> labels) {
+                        // Task completed successfully
+                        // ...
+                        stringBuilder.append("Success").append("\n");
+
+                        for (ImageLabel label : labels) {
+                            String text = label.getText();
+                            float confidence = label.getConfidence();
+                            int index = label.getIndex();
+                            stringBuilder.append(label.getText()).append("\n");
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Task failed with an exception
+                        // ...
+                        stringBuilder.append("Fail").append("\n");
+                    }
+                });
     }
 
     @Override
